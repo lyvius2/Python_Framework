@@ -1,9 +1,9 @@
 {% extends 'base.html' %} 
 {% block content %} 
-    <h2>게임 콘솔 목록</h2>
+    <h2>게임 콘솔 상품 목록</h2>
     <ul>
-        {% for key, value in consoles | dictsort %} 
-            <li><a href="/console/{{ key }}">{{ value['name'] }}</a></li>
+        {% for console in consoles %} 
+            <li><a href="/product/{{ console.product_no }}">{{ console['product_name'] }}</a></li>
         {% endfor %}
     </ul>
 {% endblock %} 

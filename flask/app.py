@@ -1,23 +1,27 @@
 from flask import Flask, render_template
+import requests
 
 app = Flask(__name__)
 
-console_data = {
-    1: {'name': '패밀리컴퓨터', 'company': 'Nintendo', 'topTitle': {'드래곤퀘스트3': 1987, '파이널판타지3': 1990, '패미컴탐정클럽 Part2': 1989}},
-    2: {'name': 'Play Station2', 'company': 'SONY', 'topTitle': {'바이오하자드4': 2006, '령 제로': 2001}}
-}
+api_url = 'http://127.0.0.1:8000'
 
 
 @app.route('/')
+@app.route('/product')
 def index():
-    return render_template('index.html', consoles=console_data)
+    response = requests.get(api_url + '/product')
+    result = response.json()
+    return render_template('index.html', consoles=result['data'])
 
 
-@app.route('/console/<int:id>')
+@app.route('/product/<path:id>')
 def console(id):
+    response = requests.get(api_url + '/product/' + id)
+    result = response.json()['data']
     return render_template('console.html',
-                           console_name=console_data[id]['name'],
-                           console_title=console_data[id]['topTitle'])
+                           console_name=result['product_name'],
+                           console_price=result['price'],
+                           console_sell=result['stock'])
 
 
 if __name__ == '__main__':

@@ -1,9 +1,8 @@
 {% extends 'base.html' %} 
 {% block content %} 
-    <h3>{{ console_name }}의 대표 타이틀</h3>
+    <h3>{{ console_name }}의 정보</h3>
     <ul>
-        {% for key, value in console_title.items() %} 
-            <li>{{ key }} : {{ value }}</li>
-        {% endfor %}
+        <li>발매 가격 : {{ console_price }}</li>
+        <li>판매 대수 : {{ console_sell }}</li>
     </ul>
 {% endblock %} 
